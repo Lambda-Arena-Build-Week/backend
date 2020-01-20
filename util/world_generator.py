@@ -45,9 +45,9 @@ class World:
             self.setup_world(new_room)
         else:
             dirs = ["n", "e", "s", "w"]
-            prob_1 = math.ceil(self.max / 50) 
-            prob_08 = math.ceil(self.max / 25)
-            prob = 1 if -(prob_1) <= room.x <= prob_1 and -(prob_1) <= room.y <= (prob_1) else (0.8 if -(prob_08) <= room.x <= prob_08 and -(prob_08) <= room.y <= prob_08 else 0.3)
+            prob_09 = math.ceil(self.max / 50) 
+            prob_07 = math.ceil(self.max / 25)
+            prob = 0.9 if -(prob_09) <= room.x <= prob_09 and -(prob_09) <= room.y <= (prob_09) else (0.7 if -(prob_07) <= room.x <= prob_07 and -(prob_07) <= room.y <= prob_07 else 0.3)
             # prob = 1 if -2 <= room.x <= 2 and -2 <= room.y <= 2 else (0.8 if -4 <= room.x <= 4 and -4 <= room.y <= 4 else 0.3)
             for dir in dirs:
                 # making connection with either an existing room or create new room
@@ -66,9 +66,9 @@ class World:
 
         neighbor = self.find_room(switcher.get(dir)[1])
 
-        # if neighboring room at the direction exist, only make connection if rand is over 0.5
+        # if neighboring room at the direction exist, only make connection if rand is <= 0.1
         if neighbor:
-            if random.random() > 0.5:
+            if random.random() <= 0.1:
                 setattr(room, f"{dir}_to", neighbor)
                 setattr(neighbor,f"{rev_dir[dir]}_to", room)
 
