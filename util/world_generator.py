@@ -2,9 +2,9 @@ import random
 import math
 
 class Room:
-    def __init__(self, id, title, description, x=0, y=0):
-        # creating a room_number for easier grid setup later, id is the coordinate in string
-        self.id = id
+    def __init__(self, rm_id, title, description, x=0, y=0):
+        # creating a room_number for easier grid setup later, rm_id is the coordinate in string
+        self.rm_id = rm_id
         self.title = title
         self.description = description
         self.n_to = None
@@ -15,10 +15,10 @@ class Room:
         self.y = y
 
     def __str__(self):
-        return f"Room ID: {self.id}, Room Title: {self.title}, North: {self.n_to.id if self.n_to else False}, South: {self.s_to.id if self.s_to else False}, East: {self.e_to.id if self.e_to else False}, West: {self.w_to.id if self.w_to else False}"
+        return f"Room ID: {self.rm_id}, Room Title: {self.title}, North: {self.n_to.rm_id if self.n_to else False}, South: {self.s_to.rm_id if self.s_to else False}, East: {self.e_to.rm_id if self.e_to else False}, West: {self.w_to.rm_id if self.w_to else False}"
 
     def __repr__(self):
-        return str(self.id).zfill(6)
+        return str(self.rm_id).zfill(6)
 
 class World:
     def __init__(self, max=100):
@@ -30,18 +30,18 @@ class World:
         self.y_max = 0
         self.y_min = 0
        
-    def find_room(self, id):
-        if id in self.rooms.keys():
-            return self.rooms[id]
+    def find_room(self, rm_id):
+        if rm_id in self.rooms.keys():
+            return self.rooms[rm_id]
         else:
             return None
 
     def setup_world(self, room = None):
         if self.size == 0:
-            new_room = Room(id = "0,0", title = "The Origin", description = "Initial Room set to coordinate [0, 0]")
-            self.rooms[new_room.id] = new_room
+            new_room = Room(rm_id = "0,0", title = "The Origin", description = "Initial Room set to coordinate [0, 0]")
+            self.rooms[new_room.rm_id] = new_room
             self.size += 1
-            # print(new_room.id)
+            # print(new_room.rm_id)
             self.setup_world(new_room)
         else:
             dirs = ["n", "e", "s", "w"]
@@ -74,8 +74,8 @@ class World:
 
         # if not existing, create room and make connections    
         elif self.size < self.max:
-            new_neighbor = Room(id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Testing Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
-            self.rooms[new_neighbor.id] = new_neighbor
+            new_neighbor = Room(rm_id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Testing Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
+            self.rooms[new_neighbor.rm_id] = new_neighbor
             self.size += 1
 
             self.x_max = new_neighbor.x if new_neighbor.x > self.x_max else self.x_max
@@ -105,9 +105,9 @@ class World:
             if self.size < self.max and switcher.get(dir)[0] is None:
                 print("check_max is triggered")
 
-                new_neighbor = Room(id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Testing Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
+                new_neighbor = Room(rm_id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Testing Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
                 
-                self.rooms[new_neighbor.id] = new_neighbor
+                self.rooms[new_neighbor.rm_id] = new_neighbor
                 self.size += 1
 
                 setattr(origin_rm, f"{dir}_to", new_neighbor)
@@ -146,7 +146,7 @@ class World:
                         str2 += "* "
                     else:
                         str2 += "  "
-                    str2 += str(grid[i][j].id).zfill(6)
+                    str2 += str(grid[i][j].rm_id).zfill(6)
                     #check for east
                     if grid[i][j].e_to:
                         str2 += " *"
