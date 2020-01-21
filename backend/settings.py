@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'users'
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DEV_DB_NAME'),
-        'USERNAME': os.getenv('DEV_DB_USER'),
+        'USER': os.getenv('DEV_DB_USER'),
         'PASSWORD': os.getenv('DEV_BD_PW'),
         'HOST': os.getenv('DEV_DB_ENDPOINT'),
         'PORT': os.getenv('DEV_DB_PORT')
