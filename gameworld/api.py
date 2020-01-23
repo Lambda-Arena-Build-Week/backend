@@ -18,7 +18,9 @@ def rooms(request):
         "x": room.x,
         "y": room.y,
         "player_ct": room.player_ct,
-        "has_item" : room.has_item
+        "has_item" : room.has_item,
+        "items": [{"id" : item.id, "name" : item.item_name, "description" : item.description}
+        for item in room.item_set.all()]
         }
         for room in Room.objects.all()]
     return JsonResponse(rooms, safe=False)

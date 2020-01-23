@@ -1,9 +1,11 @@
-from gameworld.models import Room, Item
+from gameworld.models import Room, Item, Player
 import random
 import math
 
 Room.objects.all().delete()
 Item.objects.all().delete()
+Player.objects.all().delete()
+
 
 class World:
     def __init__(self, max=100):
@@ -14,6 +16,10 @@ class World:
         self.x_min = 0
         self.y_max = 0
         self.y_min = 0
+        self.inventory_max = math.ceil(self.max * .50)
+        self.inventory_ct = 0
+        self.inventory_size = 0
+        
        
     def find_room(self, rm_id):
         if rm_id in self.rooms.keys():
@@ -26,6 +32,10 @@ class World:
             new_room = Room(rm_id = "0,0", title = "The Origin", description = "Initial Room set to coordinate [0, 0]")
             # SAVE NEW ROOM
             new_room.save()
+            
+            # new_item = new_room.item_set.create(item_name=f"Item {new_room.rm_id}", description=f"Description for item {new_room.rm_id}")
+            
+            # new_item.save()
 
             # adding to world room list
             self.rooms[new_room.rm_id] = new_room
@@ -59,29 +69,30 @@ class World:
         if neighbor:
             if random.random() <= 0.1:
                 room.make_connections(neighbor, dir)
-               
-                room.save()
-                neighbor.save()
 
         # if not existing, create room and make connections    
         elif self.size < self.max:
             new_neighbor = Room(rm_id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
-            
             # SAVE NEW ROOM
             new_neighbor.save()
+            
+            
+            
 
             # adding room to world room list
             self.rooms[new_neighbor.rm_id] = new_neighbor
             self.size += 1
-
+            
+            if self.size % (self.max / self.inventory_max) == 0:
+                new_item = new_neighbor.item_set.create(item_name=f"Item {new_neighbor.rm_id}", description=f"Description for item {new_neighbor.rm_id}")
+                self.inventory_size += 1
+                new_neighbor.add_item()
+                new_item.save()
             self.x_max = new_neighbor.x if new_neighbor.x > self.x_max else self.x_max
             self.x_min = new_neighbor.x if new_neighbor.x < self.x_min else self.x_min
             self.y_max = new_neighbor.y if new_neighbor.y > self.y_max else self.y_max
             self.y_min = new_neighbor.y if new_neighbor.y < self.y_min else self.y_min
             
             room.make_connections(new_neighbor, dir)
-            
-            room.save()
-            new_neighbor.save()
 
             self.setup_world(new_neighbor)

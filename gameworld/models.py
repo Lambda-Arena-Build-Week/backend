@@ -34,6 +34,9 @@ class Room(models.Model):
         else:
             return
         
+        self.save()
+        neighbor.save()
+        
     def __str__(self):
         return f"Room: {self.rm_id}, N: {self.n_to}, S: {self.s_to}, W: {self.w_to}, E: {self.e_to}, Title: {self.title}, X: {self.x}, Y: {self.y}\n" 
 
@@ -54,10 +57,10 @@ class Item(models.Model):
     id = models.AutoField(primary_key=True)
     item_name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, default="A simple description of the item")
-    location = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Item ID: {self.id}, Item Name: {self.item_name}, Item Description: {self.description}, Location: {self.location}"
+        return f"Item ID: {self.id}, Item Name: {self.item_name}, Item Description: {self.description}, Room: {self.room}"
 
 
 class Player(models.Model):
