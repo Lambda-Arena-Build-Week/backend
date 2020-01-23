@@ -37,6 +37,18 @@ class Room(models.Model):
     def __str__(self):
         return f"Room: {self.rm_id}, N: {self.n_to}, S: {self.s_to}, W: {self.w_to}, E: {self.e_to}, Title: {self.title}, X: {self.x}, Y: {self.y}\n" 
 
+    def add_player(self):
+        self.player_ct += 1
+        self.save()
+    
+    def remove_player(self):
+        if self.player_ct > 0:
+            self.player_ct -= 1
+            self.save()
+
+    def add_item(self):
+        self.has_item = True
+        self.save()
 
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
@@ -55,3 +67,7 @@ class Player(models.Model):
 
     def __str__(self):
         return f"User: {self.user.id}, Current Room: {self.currentRoom.rm_id}, UUID: {self.uuid}"
+
+    def room_change(self, room):
+        self.currentRoom = room.rm_id
+        self.save()
