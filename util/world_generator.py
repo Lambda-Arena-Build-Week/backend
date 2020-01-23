@@ -20,7 +20,6 @@ class World:
         self.inventory_ct = 0
         self.inventory_size = 0
         
-       
     def find_room(self, rm_id):
         if rm_id in self.rooms.keys():
             return self.rooms[rm_id]
@@ -33,14 +32,9 @@ class World:
             # SAVE NEW ROOM
             new_room.save()
             
-            # new_item = new_room.item_set.create(item_name=f"Item {new_room.rm_id}", description=f"Description for item {new_room.rm_id}")
-            
-            # new_item.save()
-
             # adding to world room list
             self.rooms[new_room.rm_id] = new_room
             self.size += 1
-            # print(new_room.rm_id)
             self.setup_world(new_room)
         else:
             dirs = ["n", "e", "s", "w"]
@@ -75,9 +69,6 @@ class World:
             new_neighbor = Room(rm_id = switcher.get(dir)[1], x = switcher.get(dir)[2], y = switcher.get(dir)[3], title = f"Room [{switcher.get(dir)[1]}]", description = f"Additional Room at coord [{switcher.get(dir)[1]}]")
             # SAVE NEW ROOM
             new_neighbor.save()
-            
-            
-            
 
             # adding room to world room list
             self.rooms[new_neighbor.rm_id] = new_neighbor
