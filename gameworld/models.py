@@ -58,8 +58,9 @@ class Item(models.Model):
     id = models.AutoField(primary_key=True)
     item_name = models.CharField(max_length=50)
     description = models.CharField(max_length=200, default="A simple description of the item")
+    category = models.IntegerField(default=0)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return f"Item ID: {self.id}, Item Name: {self.item_name}, Item Description: {self.description}, Room: {self.room}"
 

@@ -19,7 +19,7 @@ def rooms(request):
         "y": room.y,
         "player_ct": room.player_ct,
         "has_item" : room.has_item,
-        "items": [{"id" : item.id, "name" : item.item_name, "description" : item.description}
+        "items": [{"id" : item.id, "category" : item.category, "name" : item.item_name, "description" : item.description}
         for item in room.item_set.all()]
         }
         for room in Room.objects.all()]

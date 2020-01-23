@@ -6,7 +6,6 @@ Room.objects.all().delete()
 Item.objects.all().delete()
 Player.objects.all().delete()
 
-
 class World:
     def __init__(self, max=100):
         self.size = 0
@@ -17,7 +16,6 @@ class World:
         self.y_max = 0
         self.y_min = 0
         self.inventory_max = math.ceil(self.max * .50)
-        self.inventory_ct = 0
         self.inventory_size = 0
         
     def find_room(self, rm_id):
@@ -75,10 +73,11 @@ class World:
             self.size += 1
             
             if self.size % (self.max / self.inventory_max) == 0:
-                new_item = new_neighbor.item_set.create(item_name=f"Item {new_neighbor.rm_id}", description=f"Description for item {new_neighbor.rm_id}")
+                new_item = new_neighbor.item_set.create(category=random.randint(1, 3), item_name=f"Item {new_neighbor.rm_id}", description=f"Description for item {new_neighbor.rm_id}")
                 self.inventory_size += 1
                 new_neighbor.add_item()
                 new_item.save()
+            
             self.x_max = new_neighbor.x if new_neighbor.x > self.x_max else self.x_max
             self.x_min = new_neighbor.x if new_neighbor.x < self.x_min else self.x_min
             self.y_max = new_neighbor.y if new_neighbor.y > self.y_max else self.y_max
