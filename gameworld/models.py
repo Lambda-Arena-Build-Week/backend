@@ -12,8 +12,8 @@ class Room(models.Model):
     s_to = models.CharField(max_length=10, null=True) 
     w_to = models.CharField(max_length=10, null=True) 
     e_to = models.CharField(max_length=10, null=True) 
-    x = models.CharField(max_length=5, default=0)
-    y = models.CharField(max_length=5, default=0)
+    x = models.IntegerField(default=0)
+    y = models.IntegerField(default=0)
     player_ct = models.IntegerField(default=0)
     has_item = models.BooleanField(default = False)
 
@@ -52,6 +52,7 @@ class Room(models.Model):
     def add_item(self):
         self.has_item = True
         self.save()
+
 
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
