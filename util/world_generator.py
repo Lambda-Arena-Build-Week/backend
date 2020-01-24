@@ -2,8 +2,9 @@ from gameworld.models import Room, Item
 import random
 import math
 
-Room.objects.all().delete()
-Item.objects.all().delete()
+if len(Room.objects.all()) > 0:
+    Room.objects.all().delete()
+    Item.objects.all().delete()
 
 class World:
     def __init__(self, max=100):

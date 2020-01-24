@@ -26,5 +26,5 @@ def rooms(request):
         for room in Room.objects.all()]
     return JsonResponse(rooms, safe=False)
     
-# new_world = World()
-# new_world.setup_world()
+new_world = World()
+new_world.setup_world()
