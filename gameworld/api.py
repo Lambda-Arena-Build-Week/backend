@@ -1,6 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import *
+from util.world_generator import *
 from rest_framework.decorators import api_view
 
 
@@ -24,3 +25,6 @@ def rooms(request):
         }
         for room in Room.objects.all()]
     return JsonResponse(rooms, safe=False)
+    
+new_world = World()
+new_world.setup_world()
