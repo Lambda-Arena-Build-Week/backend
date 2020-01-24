@@ -3,7 +3,7 @@ from django.conf.urls import url
 
 from . import api
 
-app_name = 'gameworld'
+# app_name = 'gameworld'
 urlpatterns = [
     url('', api.rooms),
     

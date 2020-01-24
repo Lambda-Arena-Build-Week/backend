@@ -65,14 +65,14 @@ class Item(models.Model):
         return f"Item ID: {self.id}, Item Name: {self.item_name}, Item Description: {self.description}, Room: {self.room}"
 
 
-class Player(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
-    currentRoom = models.ForeignKey(Room, on_delete=models.CASCADE)
-    uuid = models.UUIDField(default = uuid.uuid4, unique=True)
+# class Player(models.Model):
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+#     currentRoom = models.ForeignKey(Room, on_delete=models.CASCADE)
+#     uuid = models.UUIDField(default = uuid.uuid4, unique=True)
 
-    def __str__(self):
-        return f"User: {self.user.id}, Current Room: {self.currentRoom.rm_id}, UUID: {self.uuid}"
+#     def __str__(self):
+#         return f"User: {self.user.id}, Current Room: {self.currentRoom.rm_id}, UUID: {self.uuid}"
 
-    def room_change(self, room):
-        self.currentRoom = room.rm_id
-        self.save()
+#     def room_change(self, room):
+#         self.currentRoom = room.rm_id
+#         self.save()

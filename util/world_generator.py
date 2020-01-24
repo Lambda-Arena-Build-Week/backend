@@ -1,10 +1,9 @@
-from gameworld.models import Room, Item, Player
+from gameworld.models import Room, Item
 import random
 import math
 
 Room.objects.all().delete()
 Item.objects.all().delete()
-Player.objects.all().delete()
 
 class World:
     def __init__(self, max=100):
