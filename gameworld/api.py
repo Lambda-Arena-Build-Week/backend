@@ -1,7 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import *
-from util.world_generator import *
 from rest_framework.decorators import api_view
 
 
