@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from backend import settings
+# from backend import settings
 import uuid
 
 class Room(models.Model):
