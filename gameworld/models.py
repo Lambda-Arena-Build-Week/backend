@@ -66,8 +66,8 @@ class Item(models.Model):
 
 
 class Player(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
-    currentRoom = models.ForeignKey(Room, on_delete=models.CASCADE)
+    #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    #currentRoom = models.ForeignKey(Room, on_delete=models.CASCADE)
     uuid = models.UUIDField(default = uuid.uuid4, unique=True)
 
     def __str__(self):
