@@ -6,4 +6,5 @@ from . import api
 app_name = 'gameworld'
 urlpatterns = [
     url('', api.rooms),
+    
 ]
