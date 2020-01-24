@@ -1,4 +1,4 @@
-from gameworld.models import Room, Item
+from gameworld.models import Room, Item, Player
 import random
 import math
 
