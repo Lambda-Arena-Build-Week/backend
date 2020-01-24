@@ -54,6 +54,8 @@ class Room(models.Model):
         self.save()
 
 
+
+
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
     item_name = models.CharField(max_length=50)

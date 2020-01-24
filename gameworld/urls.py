@@ -5,6 +5,7 @@ from . import api
 
 # app_name = 'gameworld'
 urlpatterns = [
-    url('', api.rooms),
-    
+    url('rooms/', api.rooms),
+    url('init/', api.initialize),
+    url('move/', api.move) 
 ]
